@@ -37,8 +37,8 @@ CekOne=$(cat /usr/local/etc/.$Name.ini)
 
 tram=$( free -h | awk 'NR==2 {print $2}' )
 uram=$( free -h | awk 'NR==2 {print $3}' )
-ISP=$(curl -s whoismyisp.org/ip/$MYIP | grep -oP -m1 '(?<=isp">).*(?=</p)' | cut -d " " -f 2-10 )
-CITY=$(curl -s ipinfo.io/city )
+ISP=$(curl -s ipinfo.io/org?token=9fe2c868f84abd )
+CITY=$(curl -s ipinfo.io/city?token=9fe2c868f84abd )
 
 Bloman () {
 if [ -f "/etc/.$Name.ini" ]; then
