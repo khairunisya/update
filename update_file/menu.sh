@@ -9,6 +9,10 @@ export RED="\033[0;31m"
 export COLOR1="$(cat /etc/ssnvpn/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
 export COLBG1="$(cat /etc/ssnvpn/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"                    
 ###########- END COLOR CODE -##########
+tram=$( free -h | awk 'NR==2 {print $2}' )
+uram=$( free -h | awk 'NR==2 {print $3}' )
+ISP=$(curl -s ipinfo.io/org | cut -d " " -f 2-10 )
+CITY=$(curl -s ipinfo.io/city )
 
 
 BURIQ () {
@@ -30,15 +34,11 @@ BURIQ () {
 }
 
 MYIP=$(curl -sS ipv4.icanhazip.com)
+expp=$(curl -sS https://raw.githubusercontent.com/khairunisya/permission/main/ipmini | grep $MYIP | awk '{print $3}')
 Name=$(curl -sS https://raw.githubusercontent.com/khairunisya/permission/main/ipmini | grep $MYIP | awk '{print $2}')
 Isadmin=$(curl -sS https://raw.githubusercontent.com/khairunisya/permission/main/ipmini | grep $MYIP | awk '{print $5}')
 echo $Name > /usr/local/etc/.$Name.ini
 CekOne=$(cat /usr/local/etc/.$Name.ini)
-
-tram=$( free -h | awk 'NR==2 {print $2}' )
-uram=$( free -h | awk 'NR==2 {print $3}' )
-ISP=$(curl -s ipinfo.io/org?token=9fe2c868f84abd )
-CITY=$(curl -s ipinfo.io/city?token=9fe2c868f84abd )
 
 Bloman () {
 if [ -f "/etc/.$Name.ini" ]; then
@@ -174,9 +174,10 @@ else
 echo -e "$COLOR1│$NC System Uptime  : $uphours $upminutes"
 fi
 echo -e "$COLOR1│$NC Memory Usage   : $uram / $tram"
-echo -e "$COLOR1│$NC ISP & City     : $ISP & $CITY"
+echo -e "$COLOR1│$NC ISP            : $ISP"
+echo -e "$COLOR1│$NC City           : $CITY"
 echo -e "$COLOR1│$NC Current Domain : $(cat /etc/xray/domain)"
-echo -e "$COLOR1│$NC IP-VPS         : ${COLOR1}$IPVPS${NC}"
+echo -e "$COLOR1│$NC IP-VPS         : $IPVPS${NC}"
 echo -e "$COLOR1└─────────────────────────────────────────────────┘${NC}"
 echo -e "$COLOR1 $NC               Status Service Running       $NC"
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐${NC}"
@@ -220,11 +221,11 @@ mai="datediff "$Exp" "$DATE""
 
 echo -e "$COLOR1┌─────────────────────────────────────────────────┐$NC"
 echo -e "$COLOR1│$NC User Roles  : $uis"
-echo -e "$COLOR1│$NC Version     :${COLOR1} $(cat /opt/.ver) Latest Version${NC}"
+echo -e "$COLOR1│$NC Version     : $(cat /opt/.ver) Latest Version${NC}"
 echo -e "$COLOR1│$NC Client Name : $Name"
 if [ $exp \> 1000 ];
 then
-    echo -e "$COLOR1│$NC License     : Lifetime"
+    echo -e "$COLOR1│$NC Expired     : $Exp"
 else
     datediff "$Exp" "$DATE"
 fi;
