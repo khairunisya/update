@@ -9,10 +9,6 @@ export RED="\033[0;31m"
 export COLOR1="$(cat /etc/ssnvpn/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
 export COLBG1="$(cat /etc/ssnvpn/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"                    
 ###########- END COLOR CODE -##########
-tram=$( free -h | awk 'NR==2 {print $2}' )
-uram=$( free -h | awk 'NR==2 {print $3}' )
-ISP=$(curl -s ipinfo.io/org | cut -d " " -f 2-10 )
-CITY=$(curl -s ipinfo.io/city )
 
 
 BURIQ () {
@@ -38,6 +34,11 @@ Name=$(curl -sS https://raw.githubusercontent.com/khairunisya/permission/main/ip
 Isadmin=$(curl -sS https://raw.githubusercontent.com/khairunisya/permission/main/ipmini | grep $MYIP | awk '{print $5}')
 echo $Name > /usr/local/etc/.$Name.ini
 CekOne=$(cat /usr/local/etc/.$Name.ini)
+
+tram=$( free -h | awk 'NR==2 {print $2}' )
+uram=$( free -h | awk 'NR==2 {print $3}' )
+ISP=$(curl -s whoismyisp.org/ip/$MYIP | grep -oP -m1 '(?<=isp">).*(?=</p)' | cut -d " " -f 2-10 )
+CITY=$(curl -s ipinfo.io/city )
 
 Bloman () {
 if [ -f "/etc/.$Name.ini" ]; then
