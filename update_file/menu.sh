@@ -163,13 +163,12 @@ cekup=`uptime -p | grep -ow "day"`
 IPVPS=$(curl -s ipinfo.io/ip )
 serverV=$( curl -sS https://raw.githubusercontent.com/khairunisya/update/main/version_up)
 if [ "$Isadmin" = "ON" ]; then
-uis="${GREEN}Full Admin$NC"
+uis="${GREEN}Admin$NC"
 else
 uis="${GREEN}Premium User$NC"
 fi
-
 if [ "$cekup" = "day" ]; then
-echo -e "$COLOR1│$NC User Roles  : $uis"
+echo -e "$COLOR1│$NC User Roles     : $uis"
 echo -e "$COLOR1│$NC System Uptime  : $uphours $upminutes $uptimecek"
 else
 echo -e "$COLOR1│$NC System Uptime  : $uphours $upminutes"
